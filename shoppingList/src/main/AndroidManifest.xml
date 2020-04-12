@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="info.simplyapps.app.shoppinglist"
+    android:installLocation="internalOnly">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="info.simplyapps.app.shoppinglist.ShoppingListScreen"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="info.simplyapps.app.shoppinglist.screens.InventoryScreen"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_storedList" />
+        <activity
+            android:name="info.simplyapps.app.shoppinglist.screens.ConfigureScreen"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_configure" />
+    </application>
+
+</manifest>

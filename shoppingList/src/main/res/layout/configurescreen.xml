@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/configureLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_green"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/configure_autosort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/autosort" />
+
+        <CheckBox
+            android:id="@+id/configure_autotextsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/autotextsize" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/configure_defaultextsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/defaulttextsize" />
+
+            <TextView
+                android:id="@+id/configure_displaytextsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:width="50dp"
+                android:text="@string/empty" />
+
+            <SeekBar
+                android:id="@+id/configure_seektextsize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="30"
+                android:paddingStart="10dp"
+                android:progress="2" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button"
+            android:minHeight="32dp"
+            android:text="@string/btn_backup"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/configure_manageinventories"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bluegradient"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="4dp"
+            android:text="@string/manage_inventories"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/ScrollViewInventoryList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:scrollbars="vertical">
+
+            <TableLayout
+                android:id="@+id/tableLayoutConfigureList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_config"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="@string/btn_list_add_category"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btn_back_config"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="@string/btn_done"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
+</LinearLayout>

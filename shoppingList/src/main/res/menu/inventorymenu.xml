@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_inventory_help" android:title="@string/help"></item>
+    <item android:id="@+id/menu_inventory_clear" android:title="@string/btn_list_clear"></item>
+    <item android:id="@+id/menu_inventory_config" android:title="@string/configure"></item>
+</menu>

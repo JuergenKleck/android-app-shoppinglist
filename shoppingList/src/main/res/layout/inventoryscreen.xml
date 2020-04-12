@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <HorizontalScrollView
+        android:id="@+id/ScrollViewInventorySelect"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tabgradient">
+
+		<LinearLayout
+			android:id="@+id/tableLayoutInventorySelect"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:background="@android:color/transparent"
+			android:orientation="horizontal">
+
+		</LinearLayout>
+
+  	</HorizontalScrollView>
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+
+		<Button
+			android:id="@+id/btn_configure"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:background="@drawable/tab_active"
+			android:text="@string/configure"
+			android:textColor="#fff" />
+
+		<ScrollView
+			android:id="@+id/ScrollViewInventoryList"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:background="@android:color/black"
+			android:scrollbars="vertical">
+
+			<TableLayout
+				android:id="@+id/tableLayoutInventoryList"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content">
+
+			</TableLayout>
+		</ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal" >
+
+		<Button
+			android:id="@+id/btn_inventoryadd"
+			android:layout_width="0dp"
+			android:layout_height="50dp"
+			android:layout_marginRight="1dp"
+			android:layout_weight="1"
+			android:background="@drawable/button"
+			android:text="@string/btn_list_add"
+			android:textColor="#fff" />
+
+		<Button
+			android:id="@+id/btn_inventoryback"
+			android:layout_width="0dp"
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:background="@drawable/button"
+			android:text="@string/btn_back"
+			android:textColor="#fff" />
+    </LinearLayout>
+    
+</LinearLayout>

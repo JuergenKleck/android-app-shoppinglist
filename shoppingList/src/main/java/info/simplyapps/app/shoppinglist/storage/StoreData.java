@@ -1,0 +1,87 @@
+package info.simplyapps.app.shoppinglist.storage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import info.simplyapps.app.shoppinglist.Constants;
+import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
+import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
+import info.simplyapps.appengine.storage.Migrate;
+import info.simplyapps.appengine.storage.MigrationHelper;
+import info.simplyapps.appengine.storage.dto.Purchases;
+
+public class StoreData extends info.simplyapps.appengine.storage.StoreData {
+
+    private static final long serialVersionUID = 5696810296031292822L;
+
+    public List<CartItem> shoppingCart;
+    public List<Inventory> inventories;
+
+    public StoreData() {
+        shoppingCart = new ArrayList<CartItem>();
+        inventories = new ArrayList<Inventory>();
+    }
+
+    public static StoreData getInstance() {
+        return (StoreData) info.simplyapps.appengine.storage.StoreData.getInstance();
+    }
+
+    /**
+     * Update to the latest release
+     */
+    public boolean update() {
+        boolean persist = false;
+
+        // Release 4 - 1.1.0
+        if (migration < 4) {
+            // transfer the id to the list value for data backup
+            for (Inventory i : inventories) {
+                i.list = Long.valueOf(i.id).intValue();
+            }
+            // transfer migration data of purchases
+            if (MigrationHelper.hasData()) {
+                List<Migrate> list = MigrationHelper.get();
+                for (Migrate m : list) {
+                    if (m.to == 4) {
+                        if (Purchases.class.isInstance(m.data)) {
+                            purchases.add(Purchases.class.cast(m.data));
+                        }
+                    }
+                }
+                list.clear();
+            }
+            persist = true;
+        }
+
+        // Release 5 - 1.1.1
+        if (migration < 5) {
+            persist = true;
+        }
+
+        // Release 6 - 1.1.2
+        if (migration < 6) {
+            persist = true;
+        }
+
+        // Release 7 - 1.2.0
+        if (migration < 7) {
+            persist = true;
+        }
+
+        // Release 8 - 1.3.0
+        if (migration < 8) {
+            persist = true;
+            if (inventories.isEmpty()) {
+                Inventory i = new Inventory();
+                i.name = Constants.INVENTORY_DEFAULT_NAME;
+                i.order = Constants.INVENTORY_DEFAULT_ORDER;
+                i.list = 0;
+                inventories.add(i);
+            }
+        }
+
+        migration = 8;
+        return persist;
+    }
+
+}

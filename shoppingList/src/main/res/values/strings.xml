@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShoppingList</string>
+    <string name="btn_clear">Clear List</string>
+    <string name="btn_list">Inventory</string>
+    <string name="btn_list_clear">Clear List</string>
+    <string name="btn_list_save">Back</string>
+    <string name="btn_done">Done</string>
+    <string name="title_storedList">Inventory</string>
+    <string name="btn_list_add">Add</string>
+    <string name="btn_list_add_category">Add category</string>
+    <string name="lbl_typehere">Type here:</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+    <string name="add_cart">Add to Cart</string>
+    <string name="delete_cart">Delete from Cart</string>
+    <string name="delete">Delete</string>
+    <string name="help">Help</string>
+    <string name="help_shoppinglist">Add items here for temporary shopping.\n\nUse the Inventory for repeated shopping.\n\nTap long to edit items.</string>
+    <string name="help_inventory">Add items here for repeated shopping.\n\nTap long to edit items.</string>
+    <string name="btn_buy">Buy</string>
+  	<string name="btn_quit">Quit</string>
+    <string name="error">Error</string>
+    <string name="application_error">Application error: %1$s</string>
+    <string name="btn_about">About</string>
+    <string name="about_app">About this App</string> 		
+    <string name="about_text">This App helps on shopping. Regular purchased items can be stored separately.</string> 	
+    <string name="delete_list_text">Delete the current list?</string>
+    <string name="sort_az">Sort A-Z</string>
+    <string name="delete_inventory">Delete inventory</string>
+    <string name="delete_inventory_text">Really delete inventory {0}?</string>
+    <string name="delete_item">Delete item</string>
+    <string name="delete_item_text">Really delete item {0}?</string>
+    
+    <string name="configure">Configure</string>
+    <string name="btn_back">Back</string>
+	<string name="title_configure">Configuration</string>
+	<string name="save_failed">Failed to save the item.</string>    
+	<string name="delete_failed">Failed to delete the item.</string>    
+	<string name="autosort">Sort automatically</string>
+	<string name="autotextsize">Set default text size</string>
+	<string name="defaulttextsize">Text size:</string>
+	<string name="manage_inventories">Manage categories</string>
+	
+	<string name="btn_up">Up</string>
+	<string name="btn_down">Down</string>
+	<string name="migration">Migration complete</string>
+	
+	<string name="btn_backup">Backup</string>
+	<string name="lbl_backup">Item backup</string>
+	<string name="btn_import">Import</string>
+	<string name="btn_export">Export</string>
+	<string name="btn_edit">Edit</string>
+		
+	<string name="import_done">Import finished</string>
+	<string name="export_done">Exported: </string>
+	<string name="import_notfound">Import file not found</string>
+	
+	<string name="empty"></string>
+    
+</resources>
