@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('N:\\Workspace\\keystore-debug')
+            storePassword 'android'
+        }
+        release {
+            storeFile file('N:\\Workspace\\keystore-publish')
+            storePassword 'keystore'
+            keyAlias 'key'
+            keyPassword 'keypass'
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "info.simplyapps.app.shoppinglist"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode = 9
+        versionName = '1.4.0'
+        signingConfig signingConfigs.release
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    def fragment_version = "1.2.4"
+    // Java
+    implementation "androidx.fragment:fragment:$fragment_version"
+    implementation project(path: ":appEngine")
+}
