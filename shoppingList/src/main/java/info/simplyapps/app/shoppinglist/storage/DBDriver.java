@@ -5,15 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
 import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.appengine.storage.Migrate;
-import info.simplyapps.appengine.storage.MigrationHelper;
 import info.simplyapps.appengine.storage.dto.BasicTable;
-import info.simplyapps.appengine.storage.dto.Purchases;
 
 public class DBDriver extends info.simplyapps.appengine.storage.DBDriver {
 
@@ -61,36 +57,10 @@ public class DBDriver extends info.simplyapps.appengine.storage.DBDriver {
             // cartitem - nothing
             // configuration - nothing
             // extension - new
-            // purchases - added id column
             final String alterInventory = "ALTER TABLE " + StorageContract.TableInventory.TABLE_NAME +
                     " ADD COLUMN " + StorageContract.TableInventory.COLUMN_LIST + TYPE_TEXT + ";";
             db.execSQL(alterInventory);
             db.execSQL(SQL_CREATE_EXTENSIONS);
-
-            // convert purchases
-            List<String> old = new ArrayList<String>();
-            String[] projection = {StorageContract.TablePurchases.COLUMN_NAME};
-            String sortOrder = StorageContract.TablePurchases.COLUMN_NAME + " ASC";
-            Cursor c = null;
-            try {
-                c = openCursor(db, projection, sortOrder, StorageContract.TablePurchases.TABLE_NAME);
-                boolean hasResults = c.moveToFirst();
-                while (hasResults) {
-                    old.add(c.getString(c.getColumnIndexOrThrow(StorageContract.TablePurchases.COLUMN_NAME)));
-                    hasResults = c.moveToNext();
-                }
-            } finally {
-                if (c != null) {
-                    c.close();
-                }
-            }
-            db.execSQL(SQL_DELETE_PURCHASES);
-            db.execSQL(SQL_CREATE_PURCHASES);
-
-            for (String purchase : old) {
-                Purchases p = new Purchases(purchase);
-                MigrationHelper.add(new Migrate(0, 4, p));
-            }
 
         }
     }

@@ -214,6 +214,7 @@ public class InventoryScreen extends GenericScreenTemplate {
                     txtField.setTextSize(TypedValue.COMPLEX_UNIT_DIP, CartUtils.getTextSize(getApplicationContext()));
                 }
                 idField.setText(Long.toString(entry.id));
+                txtField.setOnClickListener(mAddToShoppingListener);
                 txtField.setOnLongClickListener(onLongClickListener);
 
                 // check if this is already listed in the shoppinglist
