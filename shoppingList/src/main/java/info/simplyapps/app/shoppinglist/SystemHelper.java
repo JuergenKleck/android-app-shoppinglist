@@ -8,10 +8,6 @@ import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
 
 public class SystemHelper extends info.simplyapps.appengine.SystemHelper {
 
-//	public static boolean isDemo() {
-//		return !SystemHelper.hasPurchase(Constants.EXPANSION_FULL_ID);
-//	}
-
     public synchronized static final List<Inventory> getInventories() {
         return StoreData.getInstance().inventories;
     }

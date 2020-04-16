@@ -46,34 +46,13 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//		if(CartUtils.hasOriginalVersion(getApplicationContext()) && !isFullVersion()) {
-//            if(DBDriver.store(getApplicationContext(), Constants.EXPANSION_FULL_ID)) {
-//            	ShoppingListScreen.storeData.purchases.add(Constants.EXPANSION_FULL_ID);
-//            	Toast.makeText(this, R.string.migration, Toast.LENGTH_LONG).show();
-//            }
-//		}
-
-        // DEBUG MODE
-//        if(SystemHelper.isDemo()) { 
-//            Purchases purchase = new Purchases(Constants.EXPANSION_FULL_ID);    
-//            SystemHelper.addPurchase(purchase);
-//            DBDriver.getInstance().store(purchase);
-//        }		
-        // DEBUG MODE
-
         lTable = (TableLayout) findViewById(R.id.tableLayoutShoppingList);
-
         createEditDialog();
-
         Button bAdd = (Button) findViewById(R.id.btn_add);
         bAdd.setOnClickListener(onButtonAdd);
         Button bInventory = (Button) findViewById(R.id.btn_inventory);
         bInventory.setOnClickListener(onButtonInventory);
     }
-
-//    public static boolean isFullVersion() {
-//    	return !SystemHelper.isDemo();
-//    }
 
     @Override
     protected void onResume() {

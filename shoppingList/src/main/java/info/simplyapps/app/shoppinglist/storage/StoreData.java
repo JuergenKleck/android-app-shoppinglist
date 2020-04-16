@@ -6,9 +6,6 @@ import java.util.List;
 import info.simplyapps.app.shoppinglist.Constants;
 import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
 import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.appengine.storage.Migrate;
-import info.simplyapps.appengine.storage.MigrationHelper;
-import info.simplyapps.appengine.storage.dto.Purchases;
 
 public class StoreData extends info.simplyapps.appengine.storage.StoreData {
 
@@ -37,18 +34,6 @@ public class StoreData extends info.simplyapps.appengine.storage.StoreData {
             // transfer the id to the list value for data backup
             for (Inventory i : inventories) {
                 i.list = Long.valueOf(i.id).intValue();
-            }
-            // transfer migration data of purchases
-            if (MigrationHelper.hasData()) {
-                List<Migrate> list = MigrationHelper.get();
-                for (Migrate m : list) {
-                    if (m.to == 4) {
-                        if (Purchases.class.isInstance(m.data)) {
-                            purchases.add(Purchases.class.cast(m.data));
-                        }
-                    }
-                }
-                list.clear();
             }
             persist = true;
         }
