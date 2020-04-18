@@ -16,8 +16,8 @@
     <string name="delete_cart">Delete from Cart</string>
     <string name="delete">Delete</string>
     <string name="help">Help</string>
-    <string name="help_shoppinglist">Add items here for temporary shopping.\n\nUse the Inventory for repeated shopping.\n\nTap long to edit items.</string>
-    <string name="help_inventory">Add items here for repeated shopping.\n\nTap long to edit items.</string>
+    <string name="help_shoppinglist">Add items here for temporary shopping.\n\nThe Add button has autocomplete of the inventory.\n\nUse the Inventory for repeated shopping.\n\nTap long to edit items.</string>
+    <string name="help_inventory">Add items here for repeated shopping.\n\nTap on item to add to shopping list.\n\nTap long to edit items.</string>
     <string name="btn_buy">Buy</string>
   	<string name="btn_quit">Quit</string>
     <string name="error">Error</string>
@@ -26,6 +26,7 @@
     <string name="about_app">About this App</string> 		
     <string name="about_text">This App helps on shopping. Regular purchased items can be stored separately.</string> 	
     <string name="delete_list_text">Delete the current list?</string>
+    <string name="delete_inventory_list_text">Delete the inventory list?</string>
     <string name="sort_az">Sort A-Z</string>
     <string name="delete_inventory">Delete inventory</string>
     <string name="delete_inventory_text">Really delete inventory {0}?</string>

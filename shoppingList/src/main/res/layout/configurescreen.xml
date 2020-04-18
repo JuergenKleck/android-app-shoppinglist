@@ -9,7 +9,7 @@
         android:id="@+id/configureLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_green"
+        android:background="@drawable/gradient_green"
         android:orientation="vertical">
 
         <CheckBox
@@ -49,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:max="30"
+                android:max="50"
                 android:paddingStart="10dp"
                 android:progress="2" />
 
@@ -82,7 +82,7 @@
             android:id="@+id/configure_manageinventories"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bluegradient"
+            android:background="@drawable/gradient_blue"
             android:gravity="center"
             android:paddingTop="6dp"
             android:paddingBottom="4dp"

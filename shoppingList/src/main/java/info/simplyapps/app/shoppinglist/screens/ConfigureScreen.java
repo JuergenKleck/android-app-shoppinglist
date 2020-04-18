@@ -1,9 +1,9 @@
 package info.simplyapps.app.shoppinglist.screens;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,39 +47,39 @@ public class ConfigureScreen extends GenericScreenTemplate {
     private Dialog editDialog;
     private Dialog backupDialog;
     private EditText backupPath;
-    private long listId = -1l;
+    private long listId = -1L;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        lTable = (TableLayout) findViewById(R.id.tableLayoutConfigureList);
+        lTable = findViewById(R.id.tableLayoutConfigureList);
 
         createEditDialog();
         createBackupDialog();
 
-        Button bAdd = (Button) findViewById(R.id.btn_add_config);
+        Button bAdd = findViewById(R.id.btn_add_config);
         bAdd.setOnClickListener(onButtonAdd);
-        Button bClear = (Button) findViewById(R.id.btn_back_config);
+        Button bClear = findViewById(R.id.btn_back_config);
         bClear.setOnClickListener(onButtonBack);
 
-        Button bBackup = (Button) findViewById(R.id.btn_backup);
+        Button bBackup = findViewById(R.id.btn_backup);
         bBackup.setOnClickListener(onButtonBackup);
 
         findViewById(R.id.btn_backup).setOnClickListener(onButtonBackup);
 
-        CheckBox cbSort = (CheckBox) findViewById(R.id.configure_autosort);
+        CheckBox cbSort = findViewById(R.id.configure_autosort);
         cbSort.setOnClickListener(onClickAutoSort);
         cbSort.setChecked(CartUtils.isAutoSort(getApplicationContext()));
-        CheckBox cbTextSize = (CheckBox) findViewById(R.id.configure_autotextsize);
+        CheckBox cbTextSize = findViewById(R.id.configure_autotextsize);
         cbTextSize.setOnClickListener(onClickAutoTextSize);
         cbTextSize.setChecked(CartUtils.isAutoTextSize(getApplicationContext()));
 
-        SeekBar sbTextSize = (SeekBar) findViewById(R.id.configure_seektextsize);
+        SeekBar sbTextSize = findViewById(R.id.configure_seektextsize);
         sbTextSize.setOnSeekBarChangeListener(onTextSizeChangeListener);
 
         if (CartUtils.getTextSize(getApplicationContext()) > 0) {
-            TextView tv = (TextView) findViewById(R.id.configure_displaytextsize);
+            TextView tv = findViewById(R.id.configure_displaytextsize);
             tv.setText(Integer.toString(CartUtils.getTextSize(getApplicationContext())) + Constants.CONFIG_TEXT_UNIT);
             sbTextSize.setProgress(CartUtils.getTextSize(getApplicationContext()) - Constants.CONFIG_TEXT_ADD);
         }
@@ -99,24 +99,20 @@ public class ConfigureScreen extends GenericScreenTemplate {
     }
 
     private void createEditDialog() {
-
-        // prepare edit dialog
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View border = inflater.inflate(R.layout.editdialog, null);
-        editDialog = new Dialog(this, R.style.Theme_Dialog);
+        editDialog = new Dialog(this, R.style.Theme_AppCompat_Dialog);
         editDialog.setContentView(R.layout.editdialog);
 
-        Button bOk = (Button) editDialog.findViewById(R.id.btn_ok);
-        Button bCancel = (Button) editDialog.findViewById(R.id.btn_cancel);
+        Button bOk = editDialog.findViewById(R.id.btn_ok);
+        Button bCancel = editDialog.findViewById(R.id.btn_cancel);
         bOk.setOnClickListener(onEditDialogOk);
         bCancel.setOnClickListener(onEditDialogCancel);
     }
 
     public void openEditDialog() {
         // clear text
-        EditText mText = (EditText) editDialog.findViewById(R.id.editText1);
+        EditText mText = editDialog.findViewById(R.id.editText1);
         mText.setText("");
-        if (listId > 0l) {
+        if (listId > 0L) {
             for (Inventory item : SystemHelper.getInventories()) {
                 if (item.id == listId) {
                     mText.setText(item.name);
@@ -129,21 +125,17 @@ public class ConfigureScreen extends GenericScreenTemplate {
     }
 
     private void createBackupDialog() {
-
-        // prepare backup dialog
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View border = inflater.inflate(R.layout.backupdialog, null);
-        backupDialog = new Dialog(this, R.style.Theme_Dialog);
+        backupDialog = new Dialog(this, R.style.Theme_AppCompat_Dialog);
         backupDialog.setContentView(R.layout.backupdialog);
 
-        Button bExport = (Button) backupDialog.findViewById(R.id.backup_export);
-        Button bImport = (Button) backupDialog.findViewById(R.id.backup_import);
-        Button bCancel = (Button) backupDialog.findViewById(R.id.backup_cancel);
+        Button bExport = backupDialog.findViewById(R.id.backup_export);
+        Button bImport = backupDialog.findViewById(R.id.backup_import);
+        Button bCancel = backupDialog.findViewById(R.id.backup_cancel);
         bExport.setOnClickListener(onBackupDialogExport);
         bImport.setOnClickListener(onBackupDialogImport);
         bCancel.setOnClickListener(onBackupDialogCancel);
 
-        backupPath = (EditText) backupDialog.findViewById(R.id.backup_path);
+        backupPath = backupDialog.findViewById(R.id.backup_path);
     }
 
     public void openBackupDialog() {
@@ -155,27 +147,26 @@ public class ConfigureScreen extends GenericScreenTemplate {
         lTable.removeAllViews();
         for (Inventory entry : SystemHelper.getInventories()) {
 
-            View row = null;
-            if (row == null) {
-                // ROW INFLATION
-                LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.configureitem, lTable, false);
-            }
+            View row;
+            // ROW INFLATION
+            LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
+            row = inflater.inflate(R.layout.configureitem, lTable, false);
             if (row != null) {
                 ImageButton btnDel;
                 ImageButton btnEdit;
                 TextView txtField;
 
                 // Get reference to buttons
-                btnDel = (ImageButton) row.findViewById(R.id.imageButton_deleteConfig);
+                btnDel = row.findViewById(R.id.imageButton_deleteConfig);
                 btnDel.setOnClickListener(onDeleteFromConfiguration);
 
-                btnEdit = (ImageButton) row.findViewById(R.id.imageButton_editConfig);
+                btnEdit = row.findViewById(R.id.imageButton_editConfig);
                 btnEdit.setOnClickListener(onEditConfiguration);
 
                 // Get reference to TextView
-                txtField = (TextView) row.findViewById(R.id.configurelistitem_textview);
+                txtField = row.findViewById(R.id.configurelistitem_textview);
                 //set value into the list
                 txtField.setText(entry.name);
                 if (!CartUtils.isAutoTextSize(getApplicationContext()) && CartUtils.getTextSize(getApplicationContext()) > 0) {
@@ -188,41 +179,17 @@ public class ConfigureScreen extends GenericScreenTemplate {
         }
     }
 
-    OnClickListener onButtonAdd = new OnClickListener() {
-        public void onClick(View v) {
-            actionAdd();
-        }
-    };
+    OnClickListener onButtonAdd = v -> actionAdd();
 
-    OnClickListener onButtonBackup = new OnClickListener() {
-        public void onClick(View v) {
-            actionBackup();
-        }
-    };
+    OnClickListener onButtonBackup = v -> actionBackup();
 
-    OnClickListener onButtonBack = new OnClickListener() {
-        public void onClick(View v) {
-            actionBack();
-        }
-    };
+    OnClickListener onButtonBack = v -> actionBack();
 
-    OnClickListener onClickAutoSort = new OnClickListener() {
-        public void onClick(View v) {
-            actionAutoSort();
-        }
-    };
-    OnClickListener onClickAutoTextSize = new OnClickListener() {
-        public void onClick(View v) {
-            actionAutoTextSize();
-        }
-    };
+    OnClickListener onClickAutoSort = v -> actionAutoSort();
+    OnClickListener onClickAutoTextSize = v -> actionAutoTextSize();
 
-    OnClickListener onDeleteFromConfiguration = new OnClickListener() {
-        public void onClick(View v) {
-            //get the row the clicked button is in
-            actionDeleteFromConfiguration(v);
-        }
-    };
+    //get the row the clicked button is in
+    OnClickListener onDeleteFromConfiguration = this::actionDeleteFromConfiguration;
 
     private void actionDeleteFromConfiguration(final View v) {
         final LinearLayout vwParentRow = (LinearLayout) v.getParent();
@@ -232,64 +199,61 @@ public class ConfigureScreen extends GenericScreenTemplate {
         AlertDialog.Builder b = new AlertDialog.Builder(this)
                 .setTitle(getApplicationContext().getString(R.string.delete_inventory))
                 .setMessage(MessageFormat.format(getApplicationContext().getString(R.string.delete_inventory_text), selected))
-                .setPositiveButton(getApplicationContext().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton(getApplicationContext().getString(R.string.btn_ok), (dialog, which) -> {
 
-                        Inventory item = null;
-                        for (Inventory entry : SystemHelper.getInventories()) {
-                            if (entry.name.equalsIgnoreCase(selected)) {
-                                item = entry;
-                                break;
-                            }
+                    Inventory item = null;
+                    for (Inventory entry : SystemHelper.getInventories()) {
+                        if (entry.name.equalsIgnoreCase(selected)) {
+                            item = entry;
+                            break;
                         }
-                        if (item != null) {
-                            List<CartItem> removals = new ArrayList<CartItem>();
-                            for (CartItem entry : SystemHelper.getCartItems()) {
-                                if (entry.list == item.list) {
-                                    DBDriver.getInstance().delete(entry);
-                                    removals.add(entry);
-                                }
-                            }
-                            SystemHelper.getCartItems().removeAll(removals);
-                            if (DBDriver.getInstance().delete(item)) {
-                                SystemHelper.getInventories().remove(item);
-                            } else {
-                                Toast.makeText(getApplicationContext(), R.string.delete_failed, Toast.LENGTH_LONG).show();
-                            }
-                        }
-                        TableLayout l = (TableLayout) v.getParent().getParent();
-                        l.removeView(vwParentRow);
-                        dialog.cancel();
                     }
+                    if (item != null) {
+                        List<CartItem> removals = new ArrayList<>();
+                        for (CartItem entry : SystemHelper.getCartItems()) {
+                            if (entry.list == item.list) {
+                                DBDriver.getInstance().delete(entry);
+                                removals.add(entry);
+                            }
+                        }
+                        SystemHelper.getCartItems().removeAll(removals);
+                        if (DBDriver.getInstance().delete(item)) {
+                            SystemHelper.getInventories().remove(item);
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.delete_failed, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    TableLayout l = (TableLayout) v.getParent().getParent();
+                    l.removeView(vwParentRow);
+                    dialog.cancel();
                 })
-                .setNegativeButton(v.getContext().getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(v.getContext().getString(R.string.btn_cancel), (dialog, which) -> dialog.cancel());
         AlertDialog d = b.create();
         d.show();
     }
 
-    OnClickListener onEditConfiguration = new OnClickListener() {
-        public void onClick(View v) {
-            listId = -1l;
-            LinearLayout vwParentRow = (LinearLayout) v.getParent();
-            TextView child = (TextView) vwParentRow.getChildAt(0);
-            String selected = child.getText().toString();
-            for (Inventory entry : SystemHelper.getInventories()) {
-                if (entry.name.equalsIgnoreCase(selected)) {
-                    listId = entry.id;
-                    break;
-                }
+    OnClickListener onEditConfiguration = v -> {
+        listId = -1L;
+        LinearLayout vwParentRow = (LinearLayout) v.getParent();
+        TextView child = (TextView) vwParentRow.getChildAt(0);
+        String selected = child.getText().toString();
+        for (Inventory entry : SystemHelper.getInventories()) {
+            if (entry.name.equalsIgnoreCase(selected)) {
+                listId = entry.id;
+                break;
             }
-            //get the row the clicked button is in
-            openEditDialog();
         }
+        //get the row the clicked button is in
+        openEditDialog();
     };
 
     private void readWriteExternalFile(boolean write) {
-        FileDriver.readWriteExternalFile(this, write, backupPath.getText().toString());
+        if (!write && checkPermission( Manifest.permission.READ_EXTERNAL_STORAGE, Boolean.TRUE)) {
+            FileDriver.readWriteExternalFile(this, false, backupPath.getText().toString());
+        }
+        else if (write && checkPermission( Manifest.permission.WRITE_EXTERNAL_STORAGE, Boolean.TRUE)) {
+            FileDriver.readWriteExternalFile(this, true, backupPath.getText().toString());
+        }
     }
 
     OnSeekBarChangeListener onTextSizeChangeListener = new OnSeekBarChangeListener() {
@@ -305,7 +269,7 @@ public class ConfigureScreen extends GenericScreenTemplate {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
-            TextView tv = (TextView) findViewById(R.id.configure_displaytextsize);
+            TextView tv = findViewById(R.id.configure_displaytextsize);
             tv.setText(Integer.toString(progress + Constants.CONFIG_TEXT_ADD) + Constants.CONFIG_TEXT_UNIT);
             actionChangeTextSize(progress + Constants.CONFIG_TEXT_ADD);
             updateLists();
@@ -315,10 +279,10 @@ public class ConfigureScreen extends GenericScreenTemplate {
 
     OnClickListener onEditDialogOk = new OnClickListener() {
         public void onClick(View v) {
-            EditText mText = (EditText) editDialog.findViewById(R.id.editText1);
+            EditText mText = editDialog.findViewById(R.id.editText1);
             String text = mText.getText().toString();
             if (CartUtils.notEmpty(text)) {
-                if (listId > -1l) {
+                if (listId > -1L) {
                     // edit entry
                     for (Inventory item : SystemHelper.getInventories()) {
                         if (item.id == listId) {
@@ -404,7 +368,7 @@ public class ConfigureScreen extends GenericScreenTemplate {
     };
 
     private void actionAdd() {
-        listId = -1l;
+        listId = -1L;
         openEditDialog();
     }
 
@@ -418,13 +382,13 @@ public class ConfigureScreen extends GenericScreenTemplate {
 
     private void actionAutoSort() {
         Configuration config = SystemHelper.getConfiguration(Constants.CONFIG_AUTOSORT, Constants.DEFAULT_CONFIG_AUTOSORT);
-        config.value = Boolean.toString(!Boolean.valueOf(config.value).booleanValue());
+        config.value = Boolean.toString(!Boolean.parseBoolean(config.value));
         DBDriver.getInstance().store(config);
     }
 
     private void actionAutoTextSize() {
         Configuration config = SystemHelper.getConfiguration(Constants.CONFIG_AUTOTEXTSIZE, Constants.DEFAULT_CONFIG_AUTOTEXTSIZE);
-        config.value = Boolean.toString(!Boolean.valueOf(config.value).booleanValue());
+        config.value = Boolean.toString(!Boolean.parseBoolean(config.value));
         DBDriver.getInstance().store(config);
         updateLists();
     }
@@ -449,6 +413,15 @@ public class ConfigureScreen extends GenericScreenTemplate {
     @Override
     public void prepareStorage(Context context) {
         StorageUtil.prepareStorage(getApplicationContext());
+    }
+    @Override
+    public void onPermissionResult(String permission, boolean granted) {
+        if(granted && permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            FileDriver.readWriteExternalFile(this, false, backupPath.getText().toString());
+            DBDriver.getInstance().write(StoreData.getInstance());
+        } else if (granted && permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            FileDriver.readWriteExternalFile(this, true, backupPath.getText().toString());
+        }
     }
 
 }
