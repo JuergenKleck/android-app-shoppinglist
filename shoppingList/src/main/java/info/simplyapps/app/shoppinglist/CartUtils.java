@@ -13,22 +13,6 @@ public final class CartUtils {
         return s != null && s.length() > 0;
     }
 
-//	public static boolean hasOriginalVersion(Context mContext) {
-//		boolean hasOriginal = false;
-//		PackageManager pm = Application.class.cast(mContext).getPackageManager();
-//		if(pm != null) {
-//			try {
-//				PackageInfo pi = pm.getPackageInfo("info.jnkleck.android.shoppinglist", 0);
-//				if(pi != null) {
-//					hasOriginal = true;
-//				}
-//			} catch (NameNotFoundException e) {
-//				hasOriginal = false;
-//			}
-//		}
-//		return hasOriginal;
-//	}
-
     public static int getTextSize(Context context) {
         Configuration config = SystemHelper.getConfiguration(Constants.CONFIG_TEXTSIZE, Constants.DEFAULT_CONFIG_TEXTSIZE);
         return Integer.valueOf(config.value);

@@ -9,8 +9,8 @@ public class RootItem {
     public List<CartItem> cartitems;
 
     public RootItem() {
-        inventories = new ArrayList<Inventory>();
-        cartitems = new ArrayList<CartItem>();
+        inventories = new ArrayList<>();
+        cartitems = new ArrayList<>();
     }
 
 }

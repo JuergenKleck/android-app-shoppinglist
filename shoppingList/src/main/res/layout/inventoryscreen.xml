@@ -9,7 +9,7 @@
         android:id="@+id/ScrollViewInventorySelect"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/tabgradient">
+        android:background="@drawable/tab_gradient">
 
 		<LinearLayout
 			android:id="@+id/tableLayoutInventorySelect"

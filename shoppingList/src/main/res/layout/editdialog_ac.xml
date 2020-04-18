@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:text="@string/lbl_typehere"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textSize="18sp"
         android:layout_marginBottom="8dp" />
 
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_typehere"
         android:layout_alignParentStart="true"
-        android:background="@android:color/white"
+        android:background="@drawable/input_border"
+        android:popupBackground="@android:color/white"
         android:textColor="#000" />
 
     <Button

@@ -3,7 +3,6 @@ package info.simplyapps.app.shoppinglist.screens;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -58,15 +57,15 @@ public class InventoryScreen extends GenericScreenTemplate {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        lTable = (ViewGroup) findViewById(R.id.tableLayoutInventoryList);
-        lTableTabs = (ViewGroup) findViewById(R.id.tableLayoutInventorySelect);
-        vInventoryList = (ScrollView) findViewById(R.id.ScrollViewInventoryList);
-        bConfigure = (Button) findViewById(R.id.btn_configure);
+        lTable = findViewById(R.id.tableLayoutInventoryList);
+        lTableTabs = findViewById(R.id.tableLayoutInventorySelect);
+        vInventoryList = findViewById(R.id.ScrollViewInventoryList);
+        bConfigure = findViewById(R.id.btn_configure);
         bConfigure.setOnClickListener(onButtonConfigure);
-        bAdd = (Button) findViewById(R.id.btn_inventoryadd);
+        bAdd = findViewById(R.id.btn_inventoryadd);
         bAdd.setOnClickListener(onButtonAdd);
 
-        Button bBack = (Button) findViewById(R.id.btn_inventoryback);
+        Button bBack = findViewById(R.id.btn_inventoryback);
         bBack.setOnClickListener(onButtonBack);
 
         createEditDialog();
@@ -81,21 +80,18 @@ public class InventoryScreen extends GenericScreenTemplate {
     }
 
     private void createEditDialog() {
-        // prepare edit dialog
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View border = inflater.inflate(R.layout.editdialog, null);
-        editDialog = new Dialog(this, R.style.Theme_Dialog);
+        editDialog = new Dialog(this, R.style.Theme_AppCompat_Dialog);
         editDialog.setContentView(R.layout.editdialog);
 
-        Button bOk = (Button) editDialog.findViewById(R.id.btn_ok);
-        Button bCancel = (Button) editDialog.findViewById(R.id.btn_cancel);
+        Button bOk = editDialog.findViewById(R.id.btn_ok);
+        Button bCancel = editDialog.findViewById(R.id.btn_cancel);
         bOk.setOnClickListener(onEditDialogOk);
         bCancel.setOnClickListener(onEditDialogCancel);
     }
 
     public void openEditDialog() {
         // clear text
-        EditText mText = (EditText) editDialog.findViewById(R.id.editText1);
+        EditText mText = editDialog.findViewById(R.id.editText1);
         mText.setText("");
         if (editItem != null) {
             mText.setText(editItem.name);
@@ -140,7 +136,6 @@ public class InventoryScreen extends GenericScreenTemplate {
             txtField.setGravity(Gravity.CENTER);
 
             int drawable = isActive ? R.drawable.tab_active : R.drawable.tab;
-            //i == 0 ? R.drawable.tab : R.drawable.tab2;
             setBackgroundImage(txtField, drawable);
 
             txtField.setTextColor(isActive ? Color.BLACK : Color.WHITE);
@@ -186,13 +181,12 @@ public class InventoryScreen extends GenericScreenTemplate {
                 continue;
             }
 
-            View row = null;
-            if (row == null) {
-                // ROW INFLATION
-                LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.inventorylistitem, lTable, false);
-            }
+            View row;
+            // ROW INFLATION
+            LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
+            row = inflater.inflate(R.layout.inventorylistitem, lTable, false);
             if (row != null) {
                 ImageButton btnDel;
                 TextView txtField;
@@ -201,13 +195,13 @@ public class InventoryScreen extends GenericScreenTemplate {
                 boolean inShoppingList = entry.inCart;
 
                 // Get reference to buttons
-                btnDel = (ImageButton) row.findViewById(R.id.imageButton_delete);
+                btnDel = row.findViewById(R.id.imageButton_delete);
 
                 btnDel.setOnClickListener(mDeleteFromInventoryListener);
 
                 // Get reference to TextView
-                txtField = (TextView) row.findViewById(R.id.inventorylistitem_textview);
-                idField = (TextView) row.findViewById(R.id.inventorylistitem_id);
+                txtField = row.findViewById(R.id.inventorylistitem_textview);
+                idField = row.findViewById(R.id.inventorylistitem_id);
                 //set value into the list
                 txtField.setText(entry.name);
                 if (!CartUtils.isAutoTextSize(getApplicationContext()) && CartUtils.getTextSize(getApplicationContext()) > 0) {
@@ -241,35 +235,29 @@ public class InventoryScreen extends GenericScreenTemplate {
         return true;
     }
 
-    OnClickListener mAddToShoppingListener = new OnClickListener() {
-        public void onClick(View v) {
-            TextView tv = (TextView) ((View) v.getParent()).findViewById(R.id.inventorylistitem_id);
-            long itemId = Long.valueOf(tv.getText().toString()).longValue();
+    OnClickListener mAddToShoppingListener = v -> {
+        TextView tv = ((View) v.getParent()).findViewById(R.id.inventorylistitem_id);
+        long itemId = Long.parseLong(tv.getText().toString());
 
-            CartItem item = null;
-            for (CartItem entry : SystemHelper.getCartItems()) {
-                if (entry.id == itemId) {
-                    item = entry;
-                    break;
-                }
+        CartItem item = null;
+        for (CartItem entry : SystemHelper.getCartItems()) {
+            if (entry.id == itemId) {
+                item = entry;
+                break;
             }
-            if (item != null) {
-                item.inCart = true;
-                item.inCartBought = false;
-                if (DBDriver.getInstance().store(item)) {
-                    updateLists();
-                }
-            }
-
         }
+        if (item != null) {
+            item.inCart = true;
+            item.inCartBought = false;
+            if (DBDriver.getInstance().store(item)) {
+                updateLists();
+            }
+        }
+
     };
 
-    OnClickListener mDeleteFromInventoryListener = new OnClickListener() {
-        public void onClick(View v) {
-            //get the row the clicked button is in
-            actionDeleteFromConfiguration(v);
-        }
-    };
+    //get the row the clicked button is in
+    OnClickListener mDeleteFromInventoryListener = this::actionDeleteFromConfiguration;
 
     private void actionDeleteFromConfiguration(final View v) {
         final LinearLayout vwParentRow = (LinearLayout) v.getParent();
@@ -279,65 +267,43 @@ public class InventoryScreen extends GenericScreenTemplate {
         AlertDialog.Builder b = new AlertDialog.Builder(this)
                 .setTitle(getApplicationContext().getString(R.string.delete_item))
                 .setMessage(MessageFormat.format(getApplicationContext().getString(R.string.delete_item_text), selected))
-                .setPositiveButton(getApplicationContext().getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton(getApplicationContext().getString(R.string.btn_ok), (dialog, which) -> {
 
-                        TextView tv = (TextView) vwParentRow.getChildAt(0);
-                        long itemId = Long.valueOf(tv.getText().toString()).longValue();
+                    TextView tv = (TextView) vwParentRow.getChildAt(0);
+                    long itemId = Long.parseLong(tv.getText().toString());
 
-                        CartItem item = null;
-                        for (CartItem entry : SystemHelper.getCartItems()) {
-                            if (entry.id == itemId) {
-                                item = entry;
-                                break;
-                            }
+                    CartItem item = null;
+                    for (CartItem entry : SystemHelper.getCartItems()) {
+                        if (entry.id == itemId) {
+                            item = entry;
+                            break;
                         }
-                        if (item != null) {
-                            if (DBDriver.getInstance().delete(item)) {
-                                SystemHelper.getCartItems().remove(item);
-                                updateLists();
-                            }
-                        }
-
-                        dialog.cancel();
                     }
+                    if (item != null) {
+                        if (DBDriver.getInstance().delete(item)) {
+                            SystemHelper.getCartItems().remove(item);
+                            updateLists();
+                        }
+                    }
+
+                    dialog.cancel();
                 })
-                .setNegativeButton(v.getContext().getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(v.getContext().getString(R.string.btn_cancel), (dialog, which) -> dialog.cancel());
         AlertDialog d = b.create();
         d.show();
     }
 
-    OnClickListener onButtonBack = new OnClickListener() {
-        public void onClick(View v) {
-            actionBack();
-        }
-    };
+    OnClickListener onButtonBack = v -> actionBack();
 
-    OnClickListener onButtonAdd = new OnClickListener() {
-        public void onClick(View v) {
-            actionAdd();
-        }
-    };
+    OnClickListener onButtonAdd = v -> actionAdd();
 
-    OnClickListener onButtonConfigure = new OnClickListener() {
-        public void onClick(View v) {
-            actionConfigure();
-        }
-    };
+    OnClickListener onButtonConfigure = v -> actionConfigure();
 
-    OnClickListener onButtonClear = new OnClickListener() {
-        public void onClick(View v) {
-            actionClear();
-        }
-    };
+    OnClickListener onButtonClear = v -> actionClear();
 
     OnClickListener onEditDialogOk = new OnClickListener() {
         public void onClick(View v) {
-            EditText mText = (EditText) View.class.cast(v.getParent()).findViewById(R.id.editText1);
+            EditText mText = ((View) v.getParent()).findViewById(R.id.editText1);
             String text = mText.getText().toString();
             if (CartUtils.notEmpty(text)) {
                 CartItem item = null;
@@ -422,7 +388,7 @@ public class InventoryScreen extends GenericScreenTemplate {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_inventory_clear: {
-                actionClear();
+                dialogClear();
                 return true;
             }
             case R.id.menu_inventory_help: {
@@ -449,8 +415,21 @@ public class InventoryScreen extends GenericScreenTemplate {
         }
     }
 
+    private void dialogClear() {
+        AlertDialog alert = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.btn_clear))
+                .setMessage(getString(R.string.delete_inventory_list_text))
+                .setPositiveButton(getString(R.string.btn_ok), (dialog, which) -> {
+                    actionClear();
+                    dialog.cancel();
+                })
+                .setNegativeButton(getString(R.string.btn_cancel), (dialog, which) -> dialog.cancel())
+                .create();
+        alert.show();
+    }
+
     private void actionClear() {
-        List<CartItem> removal = new ArrayList<CartItem>();
+        List<CartItem> removal = new ArrayList<>();
         for (CartItem item : SystemHelper.getCartItems()) {
             // delete items from this list only
             if (item.list == activeList.list) {
@@ -476,11 +455,7 @@ public class InventoryScreen extends GenericScreenTemplate {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.help_inventory)
                 .setCancelable(false)
-                .setNeutralButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setNeutralButton(R.string.btn_ok, (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -489,8 +464,8 @@ public class InventoryScreen extends GenericScreenTemplate {
 
         @Override
         public boolean onLongClick(View v) {
-            TextView tv = (TextView) ((View) v.getParent()).findViewById(R.id.inventorylistitem_id);
-            long itemId = Long.valueOf(tv.getText().toString()).longValue();
+            TextView tv = ((View) v.getParent()).findViewById(R.id.inventorylistitem_id);
+            long itemId = Long.parseLong(tv.getText().toString());
 
             for (CartItem tmpItem : SystemHelper.getCartItems()) {
                 if (tmpItem.id == itemId) {
@@ -518,6 +493,11 @@ public class InventoryScreen extends GenericScreenTemplate {
     @Override
     public void prepareStorage(Context context) {
         StorageUtil.prepareStorage(getApplicationContext());
+    }
+
+    @Override
+    public void onPermissionResult(String permission, boolean granted) {
+
     }
 
 }

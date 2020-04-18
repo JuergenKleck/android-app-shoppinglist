@@ -3,7 +3,6 @@ package info.simplyapps.app.shoppinglist;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,7 +28,6 @@ import java.util.Collections;
 import java.util.List;
 
 import info.simplyapps.app.shoppinglist.listener.ListenerCollection;
-import info.simplyapps.app.shoppinglist.screens.ConfigureScreen;
 import info.simplyapps.app.shoppinglist.screens.InventoryScreen;
 import info.simplyapps.app.shoppinglist.storage.DBDriver;
 import info.simplyapps.app.shoppinglist.storage.StorageUtil;
@@ -46,11 +44,11 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        lTable = (TableLayout) findViewById(R.id.tableLayoutShoppingList);
+        lTable = findViewById(R.id.tableLayoutShoppingList);
         createEditDialog();
-        Button bAdd = (Button) findViewById(R.id.btn_add);
+        Button bAdd = findViewById(R.id.btn_add);
         bAdd.setOnClickListener(onButtonAdd);
-        Button bInventory = (Button) findViewById(R.id.btn_inventory);
+        Button bInventory = findViewById(R.id.btn_inventory);
         bInventory.setOnClickListener(onButtonInventory);
     }
 
@@ -66,30 +64,26 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     }
 
     private void createEditDialog() {
-
         // prepare edit dialog
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View border = inflater.inflate(R.layout.editdialog2, null);
-        editDialog = new Dialog(this, R.style.Theme_Dialog);
-        editDialog.setContentView(R.layout.editdialog2);
+        editDialog = new Dialog(this, R.style.Theme_AppCompat_Dialog);
+        editDialog.setContentView(R.layout.editdialog_ac);
 
-        Button bOk = (Button) editDialog.findViewById(R.id.btn_ok);
-        Button bCancel = (Button) editDialog.findViewById(R.id.btn_cancel);
+        Button bOk = editDialog.findViewById(R.id.btn_ok);
+        Button bCancel = editDialog.findViewById(R.id.btn_cancel);
         bOk.setOnClickListener(onEditDialogOk);
         bCancel.setOnClickListener(onEditDialogCancel);
-
     }
 
     public void openEditDialog() {
         // clear text
-        AutoCompleteTextView mText = (AutoCompleteTextView) editDialog.findViewById(R.id.autoCompleteTextView);
+        AutoCompleteTextView mText = editDialog.findViewById(R.id.autoCompleteTextView);
         List<String> strings = new ArrayList<>();
 
         for (CartItem tmpItem : SystemHelper.getCartItems()) {
             strings.add(tmpItem.name);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, strings);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, strings);
         mText.setAdapter(adapter);
 
         mText.setText("");
@@ -118,13 +112,12 @@ public class ShoppingListScreen extends GenericScreenTemplate {
                 continue;
             }
 
-            View row = null;
-            if (row == null) {
-                // ROW INFLATION
-                LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.shoppinglistitem, lTable, false);
-            }
+            View row;
+            // ROW INFLATION
+            LayoutInflater inflater = (LayoutInflater) this.getApplicationContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
+            row = inflater.inflate(R.layout.shoppinglistitem, lTable, false);
             if (row != null) {
                 ImageButton btnDel;
                 TextView txtField;
@@ -132,19 +125,17 @@ public class ShoppingListScreen extends GenericScreenTemplate {
                 boolean inBoughtList = entry.inCartBought;
 
                 // Get reference to buttons
-                btnDel = (ImageButton) row.findViewById(R.id.imageButton_deleteCart);
+                btnDel = row.findViewById(R.id.imageButton_deleteCart);
 
                 btnDel.setOnClickListener(ListenerCollection.mDeleteFromShoppingList);
 
                 // Get reference to TextView
-                txtField = (TextView) row.findViewById(R.id.shoppinglistitem_textview);
-                idField = (TextView) row.findViewById(R.id.shoppinglistitem_id);
+                txtField = row.findViewById(R.id.shoppinglistitem_textview);
+                idField = row.findViewById(R.id.shoppinglistitem_id);
                 //set value into the list
                 txtField.setText(entry.name);
                 if (!CartUtils.isAutoTextSize(getApplicationContext()) && CartUtils.getTextSize(getApplicationContext()) > 0) {
                     txtField.setTextSize(TypedValue.COMPLEX_UNIT_DIP, CartUtils.getTextSize(getApplicationContext()));
-//					LayoutParams params = new LayoutParams(CartUtils.getTextSize(getApplicationContext())+Constants.CONFIG_IMAGE_ADD, CartUtils.getTextSize(getApplicationContext())+Constants.CONFIG_IMAGE_ADD);
-//					btnDel.setLayoutParams(params);
                 }
 
                 txtField.setOnClickListener(ListenerCollection.mAddToBoughtListener);
@@ -197,21 +188,13 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     }
 
 
-    OnClickListener onButtonInventory = new OnClickListener() {
-        public void onClick(View v) {
-            actionInventory();
-        }
-    };
+    OnClickListener onButtonInventory = v -> actionInventory();
 
-    OnClickListener onButtonAdd = new OnClickListener() {
-        public void onClick(View v) {
-            actionAdd();
-        }
-    };
+    OnClickListener onButtonAdd = v -> actionAdd();
 
     OnClickListener onEditDialogOk = new OnClickListener() {
         public void onClick(View v) {
-            AutoCompleteTextView mText = (AutoCompleteTextView) View.class.cast(v.getParent()).findViewById(R.id.autoCompleteTextView);
+            AutoCompleteTextView mText = ((View) v.getParent()).findViewById(R.id.autoCompleteTextView);
             String text = mText.getText().toString();
             if (CartUtils.notEmpty(text)) {
                 CartItem item = null;
@@ -271,7 +254,7 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     };
 
     private void actionClear() {
-        List<CartItem> removal = new ArrayList<CartItem>();
+        List<CartItem> removal = new ArrayList<>();
         for (CartItem item : SystemHelper.getCartItems()) {
             // delete items from this list only
             if (item.list == Constants.SHOPPING_CART_LIST) {
@@ -296,27 +279,15 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     }
 
     private void actionAdd() {
-//    	if(!isFullVersion()) {
-//    		if(SystemHelper.getCartItems().size() > Constants.DEMO_LIMITATION) {
-//    			dialogDemo();
-//    		} else {
-//        		openEditDialog();
-//    		}
-//    	} else {
         editItem = null;
         openEditDialog();
-//    	}
     }
 
     private void actionHelp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.help_shoppinglist)
                 .setCancelable(false)
-                .setNeutralButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setNeutralButton(R.string.btn_ok, (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -327,75 +298,26 @@ public class ShoppingListScreen extends GenericScreenTemplate {
         }
     }
 
-    private void openConfigurationScreen() {
-        Intent wordIntent = new Intent(this, ConfigureScreen.class);
-        wordIntent.setData(this.getIntent().getData());
-        this.startActivity(wordIntent);
-    }
-
     private void actionAbout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.about_app);
         builder.setMessage(R.string.about_text)
                 .setCancelable(false);
-//    	if(isFullVersion()) {
-        builder.setNeutralButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-//    	} else {
-//    		builder.setPositiveButton(getString(R.string.btn_buy), new DialogInterface.OnClickListener() {
-//        		public void onClick(DialogInterface dialog, int which) {
-//        			openConfigurationScreen();
-//        		}
-//        	});
-//        	builder.setNegativeButton(getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-//        		public void onClick(DialogInterface dialog, int which) {
-//        			dialog.cancel();
-//        		}
-//        	});
-//    	}
+        builder.setNeutralButton(R.string.btn_ok, (dialog, id) -> dialog.cancel());
 
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-//    private void dialogDemo() {
-//    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//    	builder.setTitle(R.string.demolimit_title);
-//    	builder.setMessage(R.string.demolimit_text)
-//    	       .setCancelable(false);
-//    	builder.setPositiveButton(getString(R.string.btn_buy), new DialogInterface.OnClickListener() {
-//    		public void onClick(DialogInterface dialog, int which) {
-//    			openConfigurationScreen();
-//    		}
-//    	});
-//    	builder.setNegativeButton(getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-//    		public void onClick(DialogInterface dialog, int which) {
-//    			dialog.cancel();
-//    		}
-//    	});
-//
-//    	AlertDialog alert = builder.create();
-//    	alert.show();
-//    }
-
     private void dialogClear() {
         AlertDialog alert = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.btn_clear))
                 .setMessage(getString(R.string.delete_list_text))
-                .setPositiveButton(getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        actionClear();
-                        dialog.cancel();
-                    }
+                .setPositiveButton(getString(R.string.btn_ok), (dialog, which) -> {
+                    actionClear();
+                    dialog.cancel();
                 })
-                .setNegativeButton(getString(R.string.btn_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
+                .setNegativeButton(getString(R.string.btn_cancel), (dialog, which) -> dialog.cancel())
                 .create();
         alert.show();
     }
@@ -404,8 +326,8 @@ public class ShoppingListScreen extends GenericScreenTemplate {
 
         @Override
         public boolean onLongClick(View v) {
-            TextView tv = (TextView) ((View) v.getParent()).findViewById(R.id.shoppinglistitem_id);
-            long itemId = Long.valueOf(tv.getText().toString()).longValue();
+            TextView tv = ((View) v.getParent()).findViewById(R.id.shoppinglistitem_id);
+            long itemId = Long.parseLong(tv.getText().toString());
 
             for (CartItem tmpItem : SystemHelper.getCartItems()) {
                 if (tmpItem.id == itemId) {
@@ -432,6 +354,11 @@ public class ShoppingListScreen extends GenericScreenTemplate {
     @Override
     public void prepareStorage(Context context) {
         StorageUtil.prepareStorage(getApplicationContext());
+    }
+
+    @Override
+    public void onPermissionResult(String permission, boolean granted) {
+
     }
 
 }
