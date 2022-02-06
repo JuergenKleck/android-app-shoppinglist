@@ -1,5 +1,10 @@
-package info.simplyapps.app.shoppinglist;
+package com.juergenkleck.android.app.shoppinglist;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class Constants {
 
     public static final String DATABASE = "ShoppingList.db";

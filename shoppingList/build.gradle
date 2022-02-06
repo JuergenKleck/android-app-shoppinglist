@@ -3,25 +3,25 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('N:\\Workspace\\keystore-debug')
+            storeFile file('..\\..\\keystore-debug')
             storePassword 'android'
         }
         release {
-            storeFile file('N:\\Workspace\\keystore-publish')
+            storeFile file('..\\..\\keystore-publish')
             storePassword 'keystore'
             keyAlias 'key'
             keyPassword 'keypass'
         }
     }
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdk 32
+    buildToolsVersion '32.1.0 rc1'
 
     defaultConfig {
-        applicationId "info.simplyapps.app.shoppinglist"
+        applicationId "com.juergenkleck.android.app.shoppinglist"
         minSdkVersion 24
-        targetSdkVersion 29
-        versionCode = 12
-        versionName = '1.5.0'
+        targetSdk 32
+        versionCode = 13
+        versionName = '1.5.1'
         signingConfig signingConfigs.release
     }
     compileOptions {
@@ -41,9 +41,9 @@ android {
 }
 
 dependencies {
-    def fragment_version = "1.2.4"
+    def fragment_version = '1.4.1'
     // Java
     implementation "androidx.fragment:fragment:$fragment_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation project(path: ":appEngine")
 }

@@ -1,4 +1,4 @@
-package info.simplyapps.app.shoppinglist.storage;
+package com.juergenkleck.android.app.shoppinglist.storage;
 
 import android.app.Activity;
 import android.os.Environment;
@@ -17,17 +17,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import info.simplyapps.app.shoppinglist.R;
-import info.simplyapps.app.shoppinglist.SystemHelper;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.app.shoppinglist.storage.dto.RootItem;
+import com.juergenkleck.android.app.shoppinglist.R;
+import com.juergenkleck.android.app.shoppinglist.SystemHelper;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.RootItem;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class FileDriver {
 
     private static final String ns = null;
 
-    public static final String FILENAME = "simplyapps.shoppinglist.xml";
+    public static final String FILENAME = "app.shoppinglist.xml";
 
     public static void readWriteExternalFile(Activity activity, boolean write, String fullpath) {
         boolean mExternalStorageAvailable = false;

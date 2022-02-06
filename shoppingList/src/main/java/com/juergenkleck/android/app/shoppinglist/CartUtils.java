@@ -1,12 +1,17 @@
-package info.simplyapps.app.shoppinglist;
+package com.juergenkleck.android.app.shoppinglist;
 
 import android.content.Context;
 
 import java.util.Comparator;
 
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.appengine.storage.dto.Configuration;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.appengine.storage.dto.Configuration;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public final class CartUtils {
 
     public static boolean notEmpty(String s) {

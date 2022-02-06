@@ -1,20 +1,25 @@
-package info.simplyapps.app.shoppinglist.storage;
+package com.juergenkleck.android.app.shoppinglist.storage;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import info.simplyapps.app.shoppinglist.Constants;
-import info.simplyapps.appengine.AppEngineConstants;
-import info.simplyapps.appengine.R;
-import info.simplyapps.appengine.SystemHelper;
-import info.simplyapps.appengine.storage.DBDriver;
-import info.simplyapps.appengine.storage.dto.Configuration;
+import com.juergenkleck.android.app.shoppinglist.Constants;
+import com.juergenkleck.android.appengine.AppEngineConstants;
+import com.juergenkleck.android.appengine.R;
+import com.juergenkleck.android.appengine.SystemHelper;
+import com.juergenkleck.android.appengine.storage.DBDriver;
+import com.juergenkleck.android.appengine.storage.dto.Configuration;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public final class StorageUtil {
 
     public synchronized static void prepareStorage(Context context) {
         if (DBDriver.getInstance() == null) {
-            DBDriver.createInstance(new info.simplyapps.app.shoppinglist.storage.DBDriver(Constants.DATABASE, Constants.DATABASE_VERSION, context));
+            DBDriver.createInstance(new com.juergenkleck.android.app.shoppinglist.storage.DBDriver(Constants.DATABASE, Constants.DATABASE_VERSION, context));
         }
 
         // try to load

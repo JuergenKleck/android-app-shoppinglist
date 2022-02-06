@@ -1,4 +1,4 @@
-package info.simplyapps.app.shoppinglist;
+package com.juergenkleck.android.app.shoppinglist;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,13 +27,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import info.simplyapps.app.shoppinglist.listener.ListenerCollection;
-import info.simplyapps.app.shoppinglist.screens.InventoryScreen;
-import info.simplyapps.app.shoppinglist.storage.DBDriver;
-import info.simplyapps.app.shoppinglist.storage.StorageUtil;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.appengine.screens.GenericScreenTemplate;
+import com.juergenkleck.android.app.shoppinglist.listener.ListenerCollection;
+import com.juergenkleck.android.app.shoppinglist.screens.InventoryScreen;
+import com.juergenkleck.android.app.shoppinglist.storage.DBDriver;
+import com.juergenkleck.android.app.shoppinglist.storage.StorageUtil;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.appengine.screens.GenericScreenTemplate;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class ShoppingListScreen extends GenericScreenTemplate {
 
     private TableLayout lTable;
@@ -358,6 +363,11 @@ public class ShoppingListScreen extends GenericScreenTemplate {
 
     @Override
     public void onPermissionResult(String permission, boolean granted) {
+
+    }
+
+    @Override
+    public void onScreenCreate(Bundle bundle) {
 
     }
 

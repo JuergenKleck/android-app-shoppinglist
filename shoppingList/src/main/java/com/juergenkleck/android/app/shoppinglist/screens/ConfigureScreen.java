@@ -1,4 +1,4 @@
-package info.simplyapps.app.shoppinglist.screens;
+package com.juergenkleck.android.app.shoppinglist.screens;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -26,19 +26,24 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.simplyapps.app.shoppinglist.CartUtils;
-import info.simplyapps.app.shoppinglist.Constants;
-import info.simplyapps.app.shoppinglist.R;
-import info.simplyapps.app.shoppinglist.SystemHelper;
-import info.simplyapps.app.shoppinglist.storage.DBDriver;
-import info.simplyapps.app.shoppinglist.storage.FileDriver;
-import info.simplyapps.app.shoppinglist.storage.StorageUtil;
-import info.simplyapps.app.shoppinglist.storage.StoreData;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.appengine.screens.GenericScreenTemplate;
-import info.simplyapps.appengine.storage.dto.Configuration;
+import com.juergenkleck.android.app.shoppinglist.CartUtils;
+import com.juergenkleck.android.app.shoppinglist.Constants;
+import com.juergenkleck.android.app.shoppinglist.R;
+import com.juergenkleck.android.app.shoppinglist.SystemHelper;
+import com.juergenkleck.android.app.shoppinglist.storage.DBDriver;
+import com.juergenkleck.android.app.shoppinglist.storage.FileDriver;
+import com.juergenkleck.android.app.shoppinglist.storage.StorageUtil;
+import com.juergenkleck.android.app.shoppinglist.storage.StoreData;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.appengine.screens.GenericScreenTemplate;
+import com.juergenkleck.android.appengine.storage.dto.Configuration;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class ConfigureScreen extends GenericScreenTemplate {
 
     static final String TAG = "ShoppingList";
@@ -422,6 +427,11 @@ public class ConfigureScreen extends GenericScreenTemplate {
         } else if (granted && permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             FileDriver.readWriteExternalFile(this, true, backupPath.getText().toString());
         }
+    }
+
+    @Override
+    public void onScreenCreate(Bundle bundle) {
+
     }
 
 }
