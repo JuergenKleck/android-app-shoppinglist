@@ -1,9 +1,14 @@
-package info.simplyapps.app.shoppinglist.storage.dto;
+package com.juergenkleck.android.app.shoppinglist.storage.dto;
 
 import java.io.Serializable;
 
-import info.simplyapps.appengine.storage.dto.BasicTable;
+import com.juergenkleck.android.appengine.storage.dto.BasicTable;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class Inventory extends BasicTable implements Serializable {
 
     /**

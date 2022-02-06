@@ -1,4 +1,4 @@
-package info.simplyapps.app.shoppinglist.listener;
+package com.juergenkleck.android.app.shoppinglist.listener;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,12 +10,17 @@ import android.widget.TextView;
 
 import java.util.Collections;
 
-import info.simplyapps.app.shoppinglist.CartUtils;
-import info.simplyapps.app.shoppinglist.SystemHelper;
-import info.simplyapps.app.shoppinglist.storage.DBDriver;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.app.shoppinglist.CartUtils;
+import com.juergenkleck.android.app.shoppinglist.SystemHelper;
+import com.juergenkleck.android.app.shoppinglist.storage.DBDriver;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class ListenerCollection {
 
     public static OnClickListener mAddToBoughtListener = new OnClickListener() {

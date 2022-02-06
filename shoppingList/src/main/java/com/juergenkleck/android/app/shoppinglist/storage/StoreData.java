@@ -1,13 +1,18 @@
-package info.simplyapps.app.shoppinglist.storage;
+package com.juergenkleck.android.app.shoppinglist.storage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import info.simplyapps.app.shoppinglist.Constants;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.app.shoppinglist.Constants;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
 
-public class StoreData extends info.simplyapps.appengine.storage.StoreData {
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
+public class StoreData extends com.juergenkleck.android.appengine.storage.StoreData {
 
     private static final long serialVersionUID = 5696810296031292822L;
 
@@ -20,7 +25,7 @@ public class StoreData extends info.simplyapps.appengine.storage.StoreData {
     }
 
     public static StoreData getInstance() {
-        return (StoreData) info.simplyapps.appengine.storage.StoreData.getInstance();
+        return (StoreData) com.juergenkleck.android.appengine.storage.StoreData.getInstance();
     }
 
     /**

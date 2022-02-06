@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="info.simplyapps.app.shoppinglist"
+    package="com.juergenkleck.android.app.shoppinglist"
     android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -25,20 +25,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="info.simplyapps.app.shoppinglist.ShoppingListScreen"
+            android:name="com.juergenkleck.android.app.shoppinglist.ShoppingListScreen"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="info.simplyapps.app.shoppinglist.screens.InventoryScreen"
+            android:name="com.juergenkleck.android.app.shoppinglist.screens.InventoryScreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_storedList" />
         <activity
-            android:name="info.simplyapps.app.shoppinglist.screens.ConfigureScreen"
+            android:name="com.juergenkleck.android.app.shoppinglist.screens.ConfigureScreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_configure" />
     </application>

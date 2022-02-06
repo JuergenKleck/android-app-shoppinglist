@@ -1,12 +1,17 @@
-package info.simplyapps.app.shoppinglist;
+package com.juergenkleck.android.app.shoppinglist;
 
 import java.util.List;
 
-import info.simplyapps.app.shoppinglist.storage.StoreData;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.app.shoppinglist.storage.StoreData;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
 
-public class SystemHelper extends info.simplyapps.appengine.SystemHelper {
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
+public class SystemHelper extends com.juergenkleck.android.appengine.SystemHelper {
 
     public synchronized static final List<Inventory> getInventories() {
         return StoreData.getInstance().inventories;

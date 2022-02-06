@@ -30,8 +30,3 @@ These projects can be found within GitHub parallel to this repository.
 
 - android-lib-appengine
 
-## Google Play Store
-
-The application is published on the following URL:
-
-https://play.google.com/store/apps/details?id=info.simplyapps.app.shoppinglist

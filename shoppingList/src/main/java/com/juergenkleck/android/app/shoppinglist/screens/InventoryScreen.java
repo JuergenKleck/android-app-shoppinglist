@@ -1,4 +1,4 @@
-package info.simplyapps.app.shoppinglist.screens;
+package com.juergenkleck.android.app.shoppinglist.screens;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,16 +31,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import info.simplyapps.app.shoppinglist.CartUtils;
-import info.simplyapps.app.shoppinglist.R;
-import info.simplyapps.app.shoppinglist.SortComparator;
-import info.simplyapps.app.shoppinglist.SystemHelper;
-import info.simplyapps.app.shoppinglist.storage.DBDriver;
-import info.simplyapps.app.shoppinglist.storage.StorageUtil;
-import info.simplyapps.app.shoppinglist.storage.dto.CartItem;
-import info.simplyapps.app.shoppinglist.storage.dto.Inventory;
-import info.simplyapps.appengine.screens.GenericScreenTemplate;
+import com.juergenkleck.android.app.shoppinglist.CartUtils;
+import com.juergenkleck.android.app.shoppinglist.R;
+import com.juergenkleck.android.app.shoppinglist.SortComparator;
+import com.juergenkleck.android.app.shoppinglist.SystemHelper;
+import com.juergenkleck.android.app.shoppinglist.storage.DBDriver;
+import com.juergenkleck.android.app.shoppinglist.storage.StorageUtil;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.CartItem;
+import com.juergenkleck.android.app.shoppinglist.storage.dto.Inventory;
+import com.juergenkleck.android.appengine.screens.GenericScreenTemplate;
 
+/**
+ * Android app - ShoppingList
+ *
+ * Copyright 2022 by Juergen Kleck <develop@juergenkleck.com>
+ */
 public class InventoryScreen extends GenericScreenTemplate {
 
     private ViewGroup lTable;
@@ -497,6 +502,11 @@ public class InventoryScreen extends GenericScreenTemplate {
 
     @Override
     public void onPermissionResult(String permission, boolean granted) {
+
+    }
+
+    @Override
+    public void onScreenCreate(Bundle bundle) {
 
     }
 

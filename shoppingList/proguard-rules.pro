@@ -1,1 +1,1 @@
--keep class info.simplyapps.appengine.*
+-keep class com.juergenkleck.android.appengine.*
